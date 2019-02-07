@@ -65,7 +65,8 @@ class XAndOTile extends JPanel {
     
 }
 
-class MosaicLiteFrame extends JFrame {
+class MosaicLiteFrame extends JFrame implements ActionListener {
+    private ArrayList<XAndOTile> tileList;
 
     public MosaicLiteFrame() {
         setBounds(100,100,1100,600);
@@ -79,15 +80,25 @@ class MosaicLiteFrame extends JFrame {
 
         JButton randomizeButton = new JButton("Randomize");
         buttonPanel.add(randomizeButton);
+        randomizeButton.addActionListener(this);
 
         JPanel xAndOGridPanel = new JPanel();
         contentPane.add(xAndOGridPanel, BorderLayout.CENTER);
         xAndOGridPanel.setLayout(new GridLayout(3,3));
 
+        tileList = new ArrayList<XAndOTile>();
         for (int i = 1; i < 10; i++) {
             XAndOTile tile = new XAndOTile();
             xAndOGridPanel.add(tile);
+            tileList.add(tile);
         }
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        for(XAndOTile tile : tileList) {
+            tile.SetRandomValue();
+        }
+        repaint();
     }
 }
 
